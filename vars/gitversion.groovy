@@ -1,5 +1,15 @@
 //https://stackoverflow.com/questions/38084806/how-to-get-the-changes-since-the-last-successful-build-in-jenkins-pipeline
 
+def getChangeList(curBuild)
+{
+    def passedBuilds = []
+    lastSuccessfulBuild(passedBuilds, curBuild);
+
+    def changeList = getChangeLog(passedBuilds)
+    print(changeList);
+    return changeList;
+}
+
 def lastSuccessfulBuild(passedBuilds, build) {
   if ((build != null) && (build.result != 'SUCCESS')) {
       passedBuilds.add(build)
